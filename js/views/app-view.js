@@ -25,7 +25,6 @@ var app = app || {};
             this.$cta = this.$('.cta-username');
             this.$container = this.$('.resume-container');
             this.$error = this.$('.error');
-            this.apiUrl = "https://api.github.com/users/";
         },
 
         // On CTA click create "Resume" model,
@@ -39,8 +38,10 @@ var app = app || {};
                 return false;
             }
 
+            this.$el.addClass('is-waiting');
+
             $.ajax({
-                url: this.apiUrl + inputVal,
+                url: "https://api.github.com/users/" + inputVal,
             }).success(function(response) {
 
                 // Since default properties of model are same as API response, lets push that JSON to model
@@ -63,6 +64,8 @@ var app = app || {};
                     .text('You\'ve entered non-existing user! Please try again')
                     .addClass('is-visible');
                 console.warn('You\'ve entered non-existing username');
+            }).always(function(){
+                that.$el.removeClass('is-waiting');
             });
         },
 
