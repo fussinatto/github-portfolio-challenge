@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" data-framework="backbonejs">
+	<head>
+		<meta charset="utf-8">
+		<title>Exozet Challenge - Github Resume App</title>
+        <style>
+	        html,
+	        body {
+	        	margin: 0;
+	        }
+            .b-github-resume {
+            	width: 600px;
+            	margin: 0 auto;
+            	display: flex;
+            	flex-direction: column;
+            	min-height: 100vh;
+            }
+            .b-main {
+            	 flex: 1;
+            }
+            .b-bio {
+                background-color: #dee8ec;
+                padding: 20px;
+                margin-top: 20px;
+            }
+            .b-footer {
+            	font-size: 12px;
+            	padding: 15px;
+            }
+            .name {
+            	font-size: 22px;
+            	font-weight: bold;
+                margin-top: 0;
+            }
+            .user-avatar {
+				float: left;
+				padding: 0 20px 20px 0;
+            }
+            .error {
+                color: red;
+                display: none;
+            }
+            .error.is-visible {
+                display: block;
+            }
+            .user-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            .languages {
+            	clear: both;
+            	font-size: 18px;
+            }
+
+            .task {
+				font-size: 14px;
+                margin-bottom:20px;
+            }
+            .task-description {
+                display: none;
+                font-size: 14px;
+                color: #777;
+            }
+            .task-description.is-visible{
+                display: block;
+            }
+
+        </style>
+	</head>
+	<body>
+
+		<section class="b-github-resume">
+
+			<header class="b-header">
+				<h1>Exozet Challenge</h1>
+                <div class="task">
+                    <a href="#task-description" class="btn-view_task">View task</a>
+                    <ul class="task-description">
+                        <li>Please implement a Javascript one-page-application that lets users build a github
+                            resumé similiar to <a href="http://resume.github.io/">http://resume.github.io/</a></li>
+                        <li>Create a landing page where the user can enter his or her github account</li>
+                        <li> Implement a “generate button” on the landing page that starts processing the
+                            previously entered account name and shows a result view to the user (the generated
+                            resumé)</li>
+                        <li> The result view shows a summary showing which programming languages the github
+                            account owner has used in his/her repository. That is sufficient. Feel free to add more
+                            statistics or to aggregate more data if you wish to.</li>
+                        <li> Implement a model that connects the data to the given HTML / Javascript template.</li>
+                        <li> Make sure to use the github API, please don't start parsing web pages manually</li>
+                    </ul>
+                </div>
+				<input type="text" id="fld-username" placeholder="Enter github username" autofocus>
+				<button class="cta-username" disabled="true">Generate</button>
+                <span class="error"></span>
+			</header>
+
+			<section class="b-main">
+				<article class="resume-container">
+
+				</article>
+			</section>
+			
+			<footer class="b-footer">
+				<p>Created by <a href="http://fussinatto.com" target="blank">Dario</a></p>
+			</footer>
+
+		</section>
+
+
+		<script type="text/template" id="resume-template">
+			<div class="b-bio">
+                <img class="user-avatar" src="<%= avatar_url %>" alt="">
+				<p class="name"><%= name %></p>
+                <p class="location"><%= location %></p>
+                <p>Total of <%= public_repos %> repos </p>
+                <div class="languages">Used languages:
+					<ul>
+						<%  _.each(languages,function(num, lang){ %>
+						<li><%= lang %> : <%= num %> <span><% if(num == 1) { %> time <% } else { %> times <% } %></span></li>
+						<% }) %>
+					</ul>
+                </div>
+			</div>
+		</script>
+
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/underscore/underscore.js"></script>
+		<script src="bower_components/backbone/backbone.js"></script>
+		<script src="js/models/resume.js"></script>
+		<script src="js/views/resume-view.js"></script>
+		<script src="js/views/app-view.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
