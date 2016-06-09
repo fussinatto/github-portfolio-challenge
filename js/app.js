@@ -1,7 +1,7 @@
 var app = app || {};
 
-$(function () {
-	'use strict';	
+$(function() {
+    'use strict';
 
-	new app.AppView();
+    new app.AppView();
 });
